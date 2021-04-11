@@ -1,8 +1,11 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const path = require('path')
+const cwdResolve = (dir) => path.resolve(process.cwd(), dir)
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-module.exports = (config) => {
+module.exports = (env) => {
   return {
+    //如果模块的路径匹配此正则的话，就不需要去查找里面的依赖项 require import
+    noParse: /noParse.js/,
     rules: [
       {
         test: /\.vue$/,
@@ -10,14 +13,24 @@ module.exports = (config) => {
       },
       {
         test: /\.js$/,
-        include: path.resolve(process.cwd(), 'src'),
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env'],
+        include: cwdResolve('src'),
+        use: [
+          {
+            loader: 'thread-loader', // 开启线程池；通信有消耗；自行选择
+            options: { workers: 3 },
           },
-        },
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
+              cacheDirectory: true, //启动babel缓存
+            },
+          },
+          {
+            loader: 'xueyue-loader',
+          },
+        ],
       },
       {
         test: /\.css$/,
@@ -26,7 +39,7 @@ module.exports = (config) => {
             loader: 'vue-style-loader',
           },
           {
-            loader: config.WEBPACK_BUILD ? MiniCssExtractPlugin.loader : 'css-loader',
+            loader: env.WEBPACK_BUILD ? MiniCssExtractPlugin.loader : 'css-loader',
           },
           {
             loader: 'css-loader',
@@ -48,7 +61,7 @@ module.exports = (config) => {
           {
             loader: 'image-webpack-loader',
             options: {
-              disable: config.WEBPACK_BUILD ? true : true,
+              disable: env.WEBPACK_BUILD ? true : true,
               mozjpeg: {
                 progressive: true,
                 quality: 65,
