@@ -1,14 +1,14 @@
-// import Vue from 'vue'
-// import App from './App.vue'
-// import router from './router'
-// import store from './store'
+import Vue from 'vue'
+import App from './App.vue'
+import router from './router'
+import store from './store'
 
-console.log(11, process.env.NODE_ENV)
+console.log('process.env.NODE_ENV====', process.env.NODE_ENV)
 
 // Vue.config.productionTip = false
 
-// new Vue({
-//   router,
-//   store,
-//   render: (h) => h(App),
-// }).$mount('#app')
+new Vue({
+  router,
+  store,
+  render: h => h(App)
+}).$mount('#app')
