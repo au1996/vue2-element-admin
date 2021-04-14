@@ -1,14 +1,29 @@
 const { merge } = require('webpack-merge')
-const portfinder = require('portfinder')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const notifier = require('node-notifier')
+const portfinder = require('portfinder')
+const chalk = require('chalk')
 
 const baseWebpackConfig = require('./webpack.base.conf')
 const loaders = require('./loaders')
 const plugins = require('./plugins')
 
+function getIPAdress() {
+  const interfaces = require('os').networkInterfaces()
+  for (let devName in interfaces) {
+    const iface = interfaces[devName]
+    for (let i = 0; i < iface.length; i++) {
+      const alias = iface[i]
+      if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) {
+        return alias.address
+      }
+    }
+  }
+}
+
 const devWebpackConfigFun = env => {
   return merge(baseWebpackConfig, {
+    target: 'web',
     mode: 'development',
     devtool: 'eval-source-map',
     module: loaders(env),
@@ -18,27 +33,31 @@ const devWebpackConfigFun = env => {
       open: false,
       hot: true,
       quiet: true,
+      host: getIPAdress(),
       port: 7001
     }
   })
 }
 
-// module.exports = devWebpackConfig
 module.exports = env => {
   console.log('dev666', env, process.env.NODE_ENV)
   const devWebpackConfig = devWebpackConfigFun(env)
   return new Promise((resolve, reject) => {
-    portfinder.basePort = process.env.PORT || devWebpackConfig.devServer.port
+    portfinder.basePort = devWebpackConfig.devServer.port
     portfinder
       .getPortPromise()
       .then(port => {
-        process.env.PORT = port
         devWebpackConfig.devServer.port = port
 
         devWebpackConfig.plugins.push(
           new FriendlyErrorsWebpackPlugin({
             compilationSuccessInfo: {
-              messages: [`Your application is running here: http://localhost:${port}`]
+              messages: [
+                `${chalk.blueBright('webpack v5')} ${chalk.green('dev server running at:')}`,
+                '',
+                `> Network: ${chalk.blueBright('http://' + devWebpackConfig.devServer.host + ':' + port)}`,
+                `> Local:   ${chalk.blueBright('http://localhost:' + port)}`
+              ]
             },
             onErrors: (severity, errors) => {
               let error = errors[0]

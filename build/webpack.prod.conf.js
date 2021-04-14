@@ -4,7 +4,7 @@ const baseWebpackConfig = require('./webpack.base.conf')
 const loaders = require('./loaders')
 const plugins = require('./plugins')
 
-const prodWebpackConfig = env => {
+module.exports = env => {
   console.log('prod666', env, process.env.NODE_ENV)
   return merge(baseWebpackConfig, {
     mode: 'production',
@@ -39,5 +39,3 @@ const prodWebpackConfig = env => {
     }
   })
 }
-
-module.exports = prodWebpackConfig

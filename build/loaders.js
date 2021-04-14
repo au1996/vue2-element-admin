@@ -16,10 +16,10 @@ module.exports = env => {
         exclude: /node_modules/,
         include: cwdResolve('src'),
         use: [
-          {
-            loader: 'thread-loader', // 使用多线程；通信有消耗；自行选择
-            options: { workers: 3 }
-          },
+          // {
+          //   loader: 'thread-loader', // 使用多线程；通信有消耗；自行选择
+          //   options: { workers: 7 }
+          // },
           {
             loader: 'babel-loader',
             options: {
@@ -36,10 +36,16 @@ module.exports = env => {
         test: /\.css$/,
         use: [
           {
+            loader: 'cache-loader'
+          },
+          {
             loader: env.WEBPACK_BUILD ? MiniCssExtractPlugin.loader : 'vue-style-loader'
           },
           {
             loader: 'css-loader'
+          },
+          {
+            loader: 'postcss-loader'
           }
         ]
       },
