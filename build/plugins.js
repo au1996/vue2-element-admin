@@ -28,6 +28,9 @@ module.exports = env => {
       template: cwdResolve('./public/index.html'),
       filename: 'index.html'
     }),
+    new webpack.DefinePlugin({
+      'process.env': env.WEBPACK_BUILD ? require('./config/env.prod') : require('./config/env.dev')
+    }),
     new VueLoaderPlugin(),
     new webpack.IgnorePlugin({
       //用于忽略某些特定的模块，让 webpack 不把这些指定的模块打包进去

@@ -33,13 +33,14 @@ const devWebpackConfigFun = env => {
       open: false,
       hot: true,
       quiet: true,
-      host: getIPAdress(),
+      host: '0.0.0.0',
       port: 7001
     }
   })
 }
 
 module.exports = env => {
+  // process.env.NODE_ENV默认值是undefined 是node环境 的环境变量；跟main.js等模块内的process.env.NODE_ENV不是一个东西
   console.log('dev666', env, process.env.NODE_ENV)
   const devWebpackConfig = devWebpackConfigFun(env)
   return new Promise((resolve, reject) => {
@@ -55,7 +56,7 @@ module.exports = env => {
               messages: [
                 `${chalk.blueBright('webpack v5')} ${chalk.green('dev server running at:')}`,
                 '',
-                `> Network: ${chalk.blueBright('http://' + devWebpackConfig.devServer.host + ':' + port)}`,
+                `> Network: ${chalk.blueBright('http://' + getIPAdress() + ':' + port)}`,
                 `> Local:   ${chalk.blueBright('http://localhost:' + port)}`
               ]
             },
