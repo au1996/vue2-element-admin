@@ -50,6 +50,26 @@ module.exports = env => {
         ]
       },
       {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: 'cache-loader'
+          },
+          {
+            loader: env.WEBPACK_BUILD ? MiniCssExtractPlugin.loader : 'vue-style-loader'
+          },
+          {
+            loader: 'css-loader'
+          },
+          {
+            loader: 'sass-loader'
+          },
+          {
+            loader: 'postcss-loader'
+          }
+        ]
+      },
+      {
         test: /\.(jpe?g|png|gif|bmp)$/,
         use: [
           {
@@ -59,6 +79,19 @@ module.exports = env => {
               name: '[name].[hash:6].[ext]',
               outputPath: 'assets/img',
               limit: 4096
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              name: '[name].[hash:6].[ext]',
+              outputPath: 'assets/fonts',
+              limit: 10000
             }
           }
         ]

@@ -13,6 +13,16 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'], //指定文件的扩展名,找不到会报错
+    fallback: {
+      //webpack5中移除了nodejs核心模块的polyfill自动引入，所以需要手动引入
+      path: require.resolve('path-browserify')
+      // crypto: require.resolve('crypto-browserify'),
+      // url: require.resolve('url'),
+      // buffer: require.resolve('buffer/'),
+      // util: require.resolve('util/'),
+      // stream: require.resolve('stream-browserify/'),
+      // vm: require.resolve('vm-browserify')
+    },
     alias: {
       '@': cwdResolve('src')
     },
