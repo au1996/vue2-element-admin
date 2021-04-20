@@ -6,6 +6,7 @@
     "dev": "cross-env webpack serve --env=development --progress --config build/webpack.dev.conf.js",
     "build": "cross-env webpack --env=production --progress --config build/webpack.prod.conf.js",
     "analyzer": "webpack-bundle-analyzer --port 8888 dist/stats.json",
+    "svgo": "svgo -f src/icons/svg --config=src/icons/svgo.yml",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -43,6 +44,8 @@
     "purgecss-webpack-plugin": "^4.0.3",
     "sass": "^1.32.10",
     "sass-loader": "^11.0.1",
+    "svg-sprite-loader": "^6.0.5",
+    "svgo": "^1.2.0",
     "thread-loader": "^3.0.1",
     "url-loader": "^4.1.1",
     "vue-loader": "^15.9.6",

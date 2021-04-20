@@ -62,7 +62,9 @@ export default {
 .errPage-container {
   width: 800px;
   max-width: 100%;
-  margin: 100px auto;
+  padding: 100px 0;
+  margin: 0 auto;
+
   .pan-back-btn {
     background: #008489;
     color: #fff;

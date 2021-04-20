@@ -14,6 +14,7 @@
     z-index: 1001;
     width: $sideBarWidth !important;
     height: 100%;
+    padding-top: 50px;
     overflow: hidden;
     font-size: 0px;
     background-color: $menuBg;
@@ -21,8 +22,7 @@
 
     // reset element-ui css
     .horizontal-collapse-transition {
-      transition: 0s width ease-in-out, 0s padding-left ease-in-out,
-        0s padding-right ease-in-out;
+      transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
     }
 
     .scrollbar-wrapper {

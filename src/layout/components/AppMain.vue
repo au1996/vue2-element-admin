@@ -10,28 +10,28 @@
 
 <script>
 export default {
-  name: "AppMain",
+  name: 'AppMain',
   computed: {
     cachedViews() {
-      return this.$store.state.tagsView.cachedViews;
+      return this.$store.state.tagsView.cachedViews
     },
     notAliveViews() {
-      return this.$store.state.tagsView.notAliveViews;
+      return this.$store.state.tagsView.notAliveViews
     },
     key() {
-      return this.$route.fullPath;
+      return this.$route.fullPath
     }
   }
-};
+}
 </script>
 
 <style scoped>
 #app .app-main {
+  position: relative;
+
   /*84 = navbar + tags-view = 50 +34 */
   height: calc(100vh - 84px);
-  position: relative;
+  padding: 20px;
   overflow-x: hidden;
-  padding: 32px;
 }
 </style>
-

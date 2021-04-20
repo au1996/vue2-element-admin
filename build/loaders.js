@@ -95,6 +95,17 @@ module.exports = env => {
             }
           }
         ]
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: 'svg-sprite-loader',
+            options: {
+              symbolId: 'icon-[name]'
+            }
+          }
+        ]
       }
     ]
   }

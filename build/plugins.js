@@ -25,6 +25,7 @@ module.exports = env => {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: 'vue2-element-admin',
+      favicon: cwdResolve('./public/favicon.ico'),
       template: cwdResolve('./public/index.html'),
       filename: 'index.html'
     }),

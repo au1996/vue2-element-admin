@@ -1,21 +1,22 @@
 <template>
   <div class="app-wrapper" :class="classObj">
-    <div v-if="device==='mobile'&& sidebar.opened" class="drawer-bg" @click="handleClickOutside"></div>
+    <div v-if="device === 'mobile' && sidebar.opened" class="drawer-bg" @click="handleClickOutside"></div>
     <!--侧栏-->
-    <sidebar class="sidebar-container scrollStyle" />
+    <Sidebar class="sidebar-container scrollStyle" />
     <!--主题部分-->
     <div class="main-container">
-    	<!--顶部导航-->
-      <navbar />
+      <!--顶部导航-->
+      <Navbar />
       <!-- 关闭菜单 -->
-      <tags-view />
+      <TagsView />
       <!--主页面-->
-      <app-main />
+      <AppMain />
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { Navbar, Sidebar, AppMain, TagsView } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
 
@@ -25,16 +26,14 @@ export default {
     Navbar,
     Sidebar,
     AppMain,
-    TagsView,
+    TagsView
   },
-  mixins: [ ResizeMixin ],
+  mixins: [ResizeMixin],
   computed: {
-    sidebar() {
-      return this.$store.state.app.sidebar
-    },
-    device() {
-      return this.$store.state.app.device
-    },
+    ...mapState({
+      sidebar: state => state.app.sidebar,
+      device: state => state.app.device
+    }),
     classObj() {
       return {
         hideSidebar: !this.sidebar.opened,
@@ -46,40 +45,40 @@ export default {
   },
   methods: {
     handleClickOutside() {
-      this.$store.dispatch('closeSideBar', { withoutAnimation: false })
+      this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
     }
   }
 }
 </script>
 
-<style rel="stylesheet/scss" lang="scss" scoped>
-  @import "src/styles/mixin.scss";
-  .app-wrapper {
-    @include clearfix;
-    position: relative;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    &.mobile.openSidebar{
-      position: fixed;
-      top: 0;
-    }
-  }
-  .sidebar-container{
-  	width: 260px !important;
-  	transition: width 0.28s;
-  }
-  .main-container{
-  	transition: margin-left .28s;
-  	margin-left: 20px;
-  }
-  .drawer-bg {
-    background: #000;
-    opacity: 0.3;
-    width: 100%;
+<style lang="scss" scoped>
+.app-wrapper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+
+  &.mobile.openSidebar {
+    position: fixed;
     top: 0;
-    height: 100%;
-    position: absolute;
-    z-index: 999;
   }
+}
+.drawer-bg {
+  position: absolute;
+  top: 0;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: 0.3;
+}
+
+.hideSidebar .fixed-header {
+  width: calc(100% - 54px);
+}
+
+.main-container {
+  margin-left: 20px;
+  transition: margin-left 0.28s;
+}
 </style>

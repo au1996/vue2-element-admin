@@ -13,6 +13,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import './icons' // icon
 import './permission' // permission control
 
 // if (process.env.NODE_ENV === 'production') {

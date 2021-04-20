@@ -1,26 +1,23 @@
 <template>
-  <div style="background-color: #4a5a74;padding-top: 100px;">
-    <div class="logo">
-      <p v-show="$store.state.app.sidebar.opened"></p>
+  <div class="sidebar-container">
+    <div class="logo" @click="$router.push('/')">
+      <img class="logoImg" :src="require('@/assets/logo.png')" alt="logo" />
+      <transition name="el-zoom-in-center">
+        <h1 v-show="sidebar.opened" class="logoText">Vue Element Admin</h1>
+      </transition>
     </div>
     <el-scrollbar wrapClass="scrollbar-wrapper">
       <el-menu
         :router="true"
-        :show-timeout="200"
         :default-active="$route.path"
         :collapse="isCollapse"
-        background-color="#4a5a74"
-        text-color="#fff"
-        active-text-color="#409EFF"
+        :show-timeout="200"
         unique-opened
+        text-color="#fff"
+        background-color="#4a5a74"
+        active-text-color="#409EFF"
       >
-        <sidebar-item
-          v-for="(item, index) in routers"
-          :class="{ ddd: routers.length === index + 1 }"
-          :key="item.name"
-          :index="item.path"
-          :item="item"
-        ></sidebar-item>
+        <SidebarItem v-for="(item, index) in routers" :key="item.path" :index="item.path" :item="item" />
       </el-menu>
     </el-scrollbar>
   </div>
@@ -28,8 +25,9 @@
 
 <script>
 import { constantRoutes } from '@/router'
-import { mapGetters } from 'vuex'
+import { getRoles } from '@/utils/auth'
 import SidebarItem from './SidebarItem'
+
 export default {
   components: { SidebarItem },
   data() {
@@ -38,84 +36,81 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['sidebar']),
+    sidebar() {
+      return this.$store.state.app.sidebar
+    },
     isCollapse() {
       return !this.sidebar.opened
     }
   },
+  mounted() {
+    this.routers = this.filterRoutes()
+    console.log(666, this.routers)
+  },
   methods: {
-    // 是否显示
-    formatRouters(routes) {
-      let arr = []
-      for (let i = 0; i < routes.length; i++) {
-        if (!routes[i].hide) {
-          arr.push(routes[i])
-        }
-        if (routes[i].path === '/') {
-          arr = [...arr, ...routes[i].children]
-        }
-      }
-      return arr
-    },
-    // 权限过滤
+    // 路由过滤
     filterRoutes() {
-      let arr = this.formatRouters(constantRoutes)
-      let routes = []
-      for (let i = 0; i < arr.length; i++) {
-        if (arr[i].meta && arr[i].meta.roles && arr[i].meta.roles.indexOf(+localStorage.userType) !== -1) {
-          routes.push(arr[i])
+      const roles = getRoles()
+      const routes = []
+      for (let i = 0; i < constantRoutes.length; i++) {
+        if (constantRoutes[i].path === '/') {
+          routes.push(...constantRoutes[i].children)
+        }
+      }
+      // 权限过滤
+      for (let i = 0; i < routes.length; i++) {
+        if (routes[i].meta && routes[i].meta.roles && !routes[i].meta.roles.includes(roles)) {
+          routes.splice(i, 1)
+          i--
         }
       }
       for (let i = 0; i < routes.length; i++) {
-        let arr2 = []
+        const childrens = []
         if (routes[i].children) {
           for (let j = 0; j < routes[i].children.length; j++) {
+            // 权限过滤
+            const childs = routes[i].children[j]
             if (
-              routes[i].children[j].meta &&
-              routes[i].children[j].meta.roles &&
-              routes[i].children[j].meta.roles.indexOf(+localStorage.userType) !== -1
+              (childs.meta && !childs.meta.roles) ||
+              (childs.meta && childs.meta.roles && childs.meta.roles.includes(roles))
             ) {
-              arr2.push(routes[i].children[j])
+              childrens.push(childs)
             }
           }
-          routes[i].children = [...arr2]
+          routes[i].children = [...childrens]
         }
       }
       return routes
-    },
-    // 排序
-    sortRoutes() {
-      let arr = this.filterRoutes()
-      arr.sort((item1, item2) => {
-        return item1.meta.sort - item2.meta.sort
-      })
-      return arr
     }
-  },
-  mounted() {
-    this.routers = this.sortRoutes()
   }
 }
 </script>
 
-<style scoped="scoped">
+<style lang="scss" scoped="scoped">
 .logo {
+  position: absolute;
+  top: 0;
+  display: flex;
   width: 100%;
-  height: 80px;
-  position: absolute;
-  top: 0;
-  background-color: #3e4e68;
-}
+  height: 50px;
+  overflow: hidden;
+  text-align: center;
+  cursor: pointer;
+  background-color: #2b2f3a;
+  justify-content: center;
+  align-items: center;
+  .logoImg {
+    width: 32px;
+    height: 32px;
+  }
 
-.logo p {
-  width: 160px;
-  height: 40px;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-  background: url(../../../assets/logo.png) no-repeat;
+  .logoText {
+    display: inline-block;
+    height: 50px;
+    margin-left: 12px;
+    font-size: 14px;
+    line-height: 50px;
+    color: #fff;
+  }
 }
 </style>

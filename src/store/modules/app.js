@@ -1,12 +1,12 @@
 import Cookies from 'js-cookie'
 
 const state = {
-  sidebar: {
-    opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : true,
-    withoutAnimation: false
-  },
   device: 'desktop',
-  size: Cookies.get('size') || 'medium'
+  size: Cookies.get('size') || 'medium',
+  sidebar: {
+    opened: Cookies.get('sidebarStatus') ? !!Cookies.get('sidebarStatus') : true,
+    withoutAnimation: false
+  }
 }
 
 const mutations = {
@@ -14,15 +14,15 @@ const mutations = {
     state.sidebar.opened = !state.sidebar.opened
     state.sidebar.withoutAnimation = false
     if (state.sidebar.opened) {
-      Cookies.set('sidebarStatus', 1)
+      Cookies.set('sidebarStatus', '1')
     } else {
-      Cookies.set('sidebarStatus', 0)
+      Cookies.set('sidebarStatus', '')
     }
   },
   CLOSE_SIDEBAR: (state, withoutAnimation) => {
-    Cookies.set('sidebarStatus', 0)
     state.sidebar.opened = false
     state.sidebar.withoutAnimation = withoutAnimation
+    Cookies.set('sidebarStatus', '')
   },
   TOGGLE_DEVICE: (state, device) => {
     state.device = device

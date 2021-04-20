@@ -15,12 +15,12 @@
         <!-- 三级菜单 -->
         <template v-for="child in item.children">
           <sidebar-item
-            :is-nest="true"
-            class="nest-menu"
             v-if="child.children && child.children.length > 0"
-            :item="child"
             :key="child.path"
             :index="child.path"
+            :is-nest="true"
+            :item="child"
+            class="nest-menu"
           ></sidebar-item>
           <el-menu-item v-else :index="child.path" :key="child.path">
             <svg-icon v-if="child.meta.icon" :icon-class="child.meta.icon"></svg-icon>
@@ -56,13 +56,6 @@ export default {
     }
   },
   methods: {
-    menuName(child) {
-      if (this.$store.getters.language === 'zh') {
-        return child.nameCn
-      } else {
-        return child.nameEn
-      }
-    },
     hasOneShowingChild(children) {
       const showingChildren = children.filter(item => {
         this.onlyOneChild = item

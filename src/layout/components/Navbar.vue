@@ -1,85 +1,76 @@
 <template>
-  <div>
-    <el-menu class="navbar" mode="horizontal">
-      <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
-      <breadcrumb class="breadcrumb-container"></breadcrumb>
-      <div class="right-menu">
-        <el-tooltip effect="dark" content="全屏" placement="bottom">
-          <screenfull class="screenfull right-menu-item"></screenfull>
-        </el-tooltip>
-        <el-dropdown class="avatar-container right-menu-item" trigger="click">
-          <div class="avatar-wrapper">
-            {{ name }}
-            <i class="el-icon-caret-bottom"></i>
-          </div>
-          <el-dropdown-menu slot="dropdown" placement="top">
-            <router-link to="/">
-              <el-dropdown-item>
-                首页
-              </el-dropdown-item>
-            </router-link>
-            <el-dropdown-item divided>
-              <span @click="status = true" style="display:block;">修改密码</span>
+  <el-menu class="navbar" mode="horizontal">
+    <Hamburger class="hamburger-container" :isActive="sidebar.opened" @toggleClick="toggleSideBar" />
+    <Breadcrumb class="breadcrumb-container" />
+    <div class="right-menu">
+      <el-tooltip effect="dark" content="全屏" placement="bottom">
+        <Screenfull class="screenfull right-menu-item" />
+      </el-tooltip>
+      <el-dropdown class="avatar-container right-menu-item" trigger="hover">
+        <div class="avatar-wrapper">
+          <img src="http://www.xueyueob.cn/icons/favicon.ico" class="user-avatar" />
+          <i class="el-icon-caret-bottom"></i>
+        </div>
+        <el-dropdown-menu slot="dropdown" placement="top">
+          <router-link to="/">
+            <el-dropdown-item>
+              首页
             </el-dropdown-item>
-            <el-dropdown-item divided>
-              <span @click="logout" style="display:block;">登出</span>
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-      </div>
-    </el-menu>
-  </div>
+          </router-link>
+          <el-dropdown-item divided>
+            <span style="display:block;" @click="editPossword">修改密码</span>
+          </el-dropdown-item>
+          <el-dropdown-item divided>
+            <span style="display:block;" @click="loginOut">登出</span>
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
+  </el-menu>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 import Screenfull from '@/components/Screenfull'
+import { removeToken, removeRoles } from '@/utils/auth'
 
 export default {
-  data() {
-    return {
-      status: false
-    }
-  },
   components: {
     Breadcrumb,
     Hamburger,
     Screenfull
   },
+  data() {
+    return {
+      status: false
+    }
+  },
   computed: {
-    ...mapGetters(['sidebar']),
-    name() {
-      return localStorage.name
+    sidebar() {
+      return this.$store.state.app.sidebar
     }
   },
   methods: {
-    close() {
-      this.status = false
-    },
     toggleSideBar() {
-      this.$store.dispatch('toggleSideBar')
+      this.$store.dispatch('app/toggleSideBar')
     },
-    logout() {
-      this.$confirm('确定退出登陆吗？', '提示', {
+    editPossword() {
+      this.$message.warning('暂不支持修改密码')
+    },
+    loginOut() {
+      this.$confirm('退出登录', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         cancelButtonClass: 'cancelBtn',
         type: 'warning'
       })
         .then(() => {
-          let params = { token: localStorage.getItem('token') }
-          _logOut(params).then(
-            response => {
-              localStorage.clear()
-              sessionStorage.clear()
-              location.href = '/'
-            },
-            error => {
-              console.log('error')
-            }
-          )
+          removeToken()
+          removeRoles()
+          this.$store.dispatch('tagsView/delAllViews').then(() => {
+            this.$router.push('/login')
+          })
         })
         .catch(() => {})
     }
@@ -87,60 +78,72 @@ export default {
 }
 </script>
 
-<style rel="stylesheet/scss" lang="scss" scoped>
+<style lang="scss" scoped>
 .navbar {
   height: 50px;
+  overflow: hidden;
   line-height: 50px;
-  border-radius: 0px !important;
+
   .hamburger-container {
-    line-height: 58px;
-    height: 50px;
     float: left;
+    height: 50px;
     padding: 0 10px;
   }
+
   .breadcrumb-container {
     float: left;
   }
+
   .errLog-container {
     display: inline-block;
     vertical-align: top;
   }
+
   .right-menu {
+    display: flex;
     float: right;
     height: 100%;
+    align-items: center;
+
     &:focus {
       outline: none;
     }
+
     .right-menu-item {
-      vertical-align: middle;
       display: inline-block;
       margin: 0 4px;
+      vertical-align: middle;
     }
-    .screenfull {
-      height: 20px;
-    }
+
     .international {
       vertical-align: top;
     }
+
     .theme-switch {
       vertical-align: 15px;
     }
+
     .avatar-container {
       height: 50px;
       margin-right: 30px;
+
       .avatar-wrapper {
-        cursor: pointer;
         position: relative;
-        line-height: 54px;
+        height: 100%;
+        padding-top: 5px;
+
         .user-avatar {
           width: 40px;
           height: 40px;
+          margin-left: 10px;
+          cursor: pointer;
           border-radius: 10px;
         }
+
         .el-icon-caret-bottom {
           position: absolute;
-          right: -16px;
           top: 20px;
+          right: -16px;
           font-size: 12px;
         }
       }
