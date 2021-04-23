@@ -29,7 +29,7 @@ export default {
 #app .app-main {
   position: relative;
 
-  /*84 = navbar + tags-view = 50 +34 */
+  /* 84 = navbar + tags-view = 50 +34 */
   height: calc(100vh - 84px);
   padding: 20px;
   overflow-x: hidden;

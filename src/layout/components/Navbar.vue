@@ -1,6 +1,6 @@
 <template>
   <el-menu class="navbar" mode="horizontal">
-    <Hamburger class="hamburger-container" :isActive="sidebar.opened" @toggleClick="toggleSideBar" />
+    <Hamburger class="hamburger-container" :is-active="sidebar.opened" @toggleClick="toggleSideBar" />
     <Breadcrumb class="breadcrumb-container" />
     <div class="right-menu">
       <el-tooltip effect="dark" content="全屏" placement="bottom">
@@ -13,15 +13,13 @@
         </div>
         <el-dropdown-menu slot="dropdown" placement="top">
           <router-link to="/">
-            <el-dropdown-item>
-              首页
-            </el-dropdown-item>
+            <el-dropdown-item> 首页 </el-dropdown-item>
           </router-link>
           <el-dropdown-item divided>
-            <span style="display:block;" @click="editPossword">修改密码</span>
+            <span style="display: block;" @click="editPossword">修改密码</span>
           </el-dropdown-item>
           <el-dropdown-item divided>
-            <span style="display:block;" @click="loginOut">登出</span>
+            <span style="display: block;" @click="loginOut">登出</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>

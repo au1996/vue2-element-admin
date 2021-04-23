@@ -6,7 +6,7 @@
         <h1 v-show="sidebar.opened" class="logoText">Vue Element Admin</h1>
       </transition>
     </div>
-    <el-scrollbar wrapClass="scrollbar-wrapper">
+    <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
         :router="true"
         :default-active="$route.path"
@@ -17,7 +17,7 @@
         background-color="#4a5a74"
         active-text-color="#409EFF"
       >
-        <SidebarItem v-for="(item, index) in routers" :key="item.path" :index="item.path" :item="item" />
+        <SidebarItem v-for="item in routers" :key="item.path" :index="item.path" :item="item" />
       </el-menu>
     </el-scrollbar>
   </div>
@@ -45,7 +45,6 @@ export default {
   },
   mounted() {
     this.routers = this.filterRoutes()
-    console.log(666, this.routers)
   },
   methods: {
     // 路由过滤
@@ -99,6 +98,7 @@ export default {
   background-color: #2b2f3a;
   justify-content: center;
   align-items: center;
+
   .logoImg {
     width: 32px;
     height: 32px;

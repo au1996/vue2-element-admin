@@ -2,7 +2,7 @@
   <div v-if="item.meta && !item.hide">
     <div class="menu-wrapper">
       <!-- 一级菜单 -->
-      <el-menu-item :index="item.path" v-if="!item.children" :class="{ 'submenu-title-noDropdown': !isNest }">
+      <el-menu-item v-if="!item.children" :index="item.path" :class="{ 'submenu-title-noDropdown': !isNest }">
         <svg-icon v-if="item.meta.icon" :icon-class="item.meta.icon"></svg-icon>
         <span slot="title">{{ item.meta.title }}</span>
       </el-menu-item>
@@ -22,7 +22,7 @@
             :item="child"
             class="nest-menu"
           ></sidebar-item>
-          <el-menu-item v-else :index="child.path" :key="child.path">
+          <el-menu-item v-else :key="child.path" :index="child.path">
             <svg-icon v-if="child.meta.icon" :icon-class="child.meta.icon"></svg-icon>
             <span slot="title">{{ child.meta.title }}</span>
           </el-menu-item>
@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     hasOneShowingChild(children) {
-      const showingChildren = children.filter(item => {
+      const showingChildren = children.filter((item) => {
         this.onlyOneChild = item
         return true
       })

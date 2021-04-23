@@ -16,7 +16,7 @@
     height: 100%;
     padding-top: 50px;
     overflow: hidden;
-    font-size: 0px;
+    font-size: 0;
     background-color: $menuBg;
     transition: width 0.28s;
 
@@ -30,7 +30,7 @@
     }
 
     .el-scrollbar__bar.is-vertical {
-      right: 0px;
+      right: 0;
     }
 
     .el-scrollbar {
@@ -63,9 +63,9 @@
     }
 
     .el-menu {
-      border: none;
-      height: 100%;
       width: 100% !important;
+      height: 100%;
+      border: none;
     }
 
     // menu hover
@@ -101,8 +101,8 @@
     }
 
     .submenu-title-noDropdown {
-      padding: 0 !important;
       position: relative;
+      padding: 0 !important;
 
       .el-tooltip {
         padding: 0 !important;
@@ -141,11 +141,11 @@
       .el-submenu {
         & > .el-submenu__title {
           & > span {
-            height: 0;
+            display: inline-block;
             width: 0;
+            height: 0;
             overflow: hidden;
             visibility: hidden;
-            display: inline-block;
           }
         }
       }
@@ -159,19 +159,19 @@
   // mobile responsive
   .mobile {
     .main-container {
-      margin-left: 0px;
+      margin-left: 0;
     }
 
     .sidebar-container {
-      transition: transform 0.28s;
       width: $sideBarWidth !important;
+      transition: transform 0.28s;
     }
 
     &.hideSidebar {
       .sidebar-container {
         pointer-events: none;
-        transition-duration: 0.3s;
         transform: translate3d(-$sideBarWidth, 0, 0);
+        transition-duration: 0.3s;
       }
     }
   }
@@ -190,6 +190,7 @@
     .svg-icon {
       margin-right: 16px;
     }
+
     .sub-el-icon {
       margin-right: 12px;
       margin-left: -2px;

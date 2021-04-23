@@ -4,13 +4,13 @@ import router from '../router'
 import { getToken, removeToken, removeRoles } from './auth'
 
 const service = axios.create({
-  // baseURL: process.env.VITE_BASE_API,
+  // baseURL: process.env.VUE_APP_BASE_URL,
   timeout: 10000 // request timeout
 })
 
 // 请求拦截器
 service.interceptors.request.use(
-  config => {
+  (config) => {
     const token = getToken()
     // 如果有token 就携带tokon
     if (token) {
@@ -18,13 +18,13 @@ service.interceptors.request.use(
     }
     return config
   },
-  error => Promise.reject(error)
+  (error) => Promise.reject(error)
 )
 
 // 响应拦截器
 service.interceptors.response.use(
-  response => response.data,
-  error => {
+  (response) => response.data,
+  (error) => {
     if (error.response && error.response.status === 401) {
       removeToken()
       removeRoles()

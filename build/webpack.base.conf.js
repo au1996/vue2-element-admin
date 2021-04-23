@@ -18,11 +18,13 @@ module.exports = {
     },
     fallback: {
       //webpack5中移除了nodejs核心模块的polyfill自动引入，所以需要手动引入
+      assert: require.resolve('assert'),
       path: require.resolve('path-browserify')
+      // util: require.resolve('util'),
+      // buffer: require.resolve('buffer')
+      // os: require.resolve('os-browserify/browser'),
       // crypto: require.resolve('crypto-browserify'),
       // url: require.resolve('url'),
-      // buffer: require.resolve('buffer/'),
-      // util: require.resolve('util/'),
       // stream: require.resolve('stream-browserify/'),
       // vm: require.resolve('vm-browserify')
     },

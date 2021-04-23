@@ -4,20 +4,14 @@
       <div class="login-title">系统登录</div>
       <el-form ref="loginRef" class="login-form" :model="param" :rules="rules" status-icon>
         <el-form-item prop="username">
-          <el-input v-model="param.username" clearable placeholder="用户名">
+          <el-input v-model="param.username" placeholder="用户名">
             <template #prepend>
               <i class="el-icon-s-custom" />
             </template>
           </el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input
-            v-model="param.password"
-            clearable
-            placeholder="密码"
-            type="password"
-            @keyup.enter.native="submitForm"
-          >
+          <el-input v-model="param.password" placeholder="密码" type="password" @keyup.enter.native="submitForm">
             <template #prepend>
               <i class="el-icon-lock" />
             </template>
@@ -53,34 +47,37 @@ export default {
   },
   methods: {
     submitForm() {
-      this.$refs.loginRef.validate(valid => {
+      this.$refs.loginRef.validate((valid) => {
         if (valid) {
           this.btnLoading = true
 
-          setTimeout(() => {
-            this.btnLoading = false
-            this.$message.success('登录成功')
-            setToken(this.param.password)
-            setRoles(this.param.username)
-            this.$router.push('/')
-          }, 800)
+          // setTimeout(() => {
+          //   this.btnLoading = false
+          //   this.$message.success('登录成功')
+          //   setToken(this.param.password)
+          //   setRoles(this.param.username)
+          //   this.$router.push('/')
+          // }, 800)
 
           // // 访问登录接口
-          // login(this.param)
-          //   .then(res => {
-          //     if (res.code === 200) {
-          //       // 登录成功后；保存用户信息以及token
-          //       this.$message.success(res.message)
-          //       setToken(res.token)
-          //       setRoles(res.role)
-          //       this.$router.push('/')
-          //     } else {
-          //       this.$message.error(res.message)
-          //     }
-          //   })
-          //   .finally(() => {
-          //     this.btnLoading = false
-          //   })
+          login(this.param)
+            .then((res) => {
+              if (res.code === 200) {
+                // 登录成功后；保存用户信息以及token
+                this.$message.success(res.message)
+                setToken(res.token)
+                setRoles(res.role)
+                this.$router.push('/')
+              } else {
+                this.$message({
+                  type: 'error',
+                  message: res.message
+                })
+              }
+            })
+            .finally(() => {
+              this.btnLoading = false
+            })
         } else {
           this.$message.error('请输入用户名和密码')
         }

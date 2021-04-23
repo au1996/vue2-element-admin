@@ -7,10 +7,10 @@
 
 body {
   height: 100%;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
 }
 
 label {
@@ -27,13 +27,13 @@ html {
 }
 
 *,
-*:before,
-*:after {
+*::before,
+*::after {
   box-sizing: inherit;
 }
 
 .no-padding {
-  padding: 0px !important;
+  padding: 0 !important;
 }
 
 .padding-content {
@@ -48,9 +48,9 @@ a:active {
 a,
 a:focus,
 a:hover {
-  cursor: pointer;
   color: inherit;
   text-decoration: none;
+  cursor: pointer;
 }
 
 div:focus {
@@ -86,28 +86,28 @@ div:focus {
 }
 
 .clearfix {
-  &:after {
-    visibility: hidden;
+  &::after {
     display: block;
+    height: 0;
+    clear: both;
     font-size: 0;
     content: " ";
-    clear: both;
-    height: 0;
+    visibility: hidden;
   }
 }
 
 aside {
-  background: #eef1f6;
+  display: block;
   padding: 8px 24px;
   margin-bottom: 20px;
-  border-radius: 2px;
-  display: block;
-  line-height: 32px;
-  font-size: 16px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  color: #2c3e50;
+  font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 32px;
+  color: #2c3e50;
+  background: #eef1f6;
+  border-radius: 2px;
 
   a {
     color: #337ab7;
@@ -125,8 +125,8 @@ aside {
 }
 
 .components-container {
-  margin: 30px 50px;
   position: relative;
+  margin: 30px 50px;
 }
 
 .pagination-container {
@@ -134,18 +134,18 @@ aside {
 }
 
 .text-center {
-  text-align: center
+  text-align: center;
 }
 
 .sub-navbar {
-  height: 50px;
-  line-height: 50px;
   position: relative;
   width: 100%;
-  text-align: right;
+  height: 50px;
   padding-right: 20px;
-  transition: 600ms ease position;
+  line-height: 50px;
+  text-align: right;
   background: linear-gradient(90deg, rgba(32, 182, 249, 1) 0%, rgba(32, 182, 249, 1) 0%, rgba(33, 120, 241, 1) 100%, rgba(33, 120, 241, 1) 100%);
+  transition: 600ms ease position;
 
   .subtitle {
     font-size: 20px;
@@ -176,8 +176,8 @@ aside {
 
   .filter-item {
     display: inline-block;
-    vertical-align: middle;
     margin-bottom: 10px;
+    vertical-align: middle;
   }
 }
 

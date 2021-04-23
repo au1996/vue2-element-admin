@@ -10,8 +10,7 @@ configure({ showSpinner: false }) // NProgress Configuration
 const whiteList = ['/login'] // no redirect whitelist
 
 router.beforeEach((to, from, next) => {
-  console.log('beforeEach: to', to)
-  console.log('beforeEach: from', from)
+  console.log('beforeEach: to from', to, from)
   // start progress bar
   start()
   // determine whether the user has logged in
@@ -26,8 +25,7 @@ router.beforeEach((to, from, next) => {
       done()
     } else {
       const roles = getRoles()
-      const routes = router.getRoutes().filter(r => r.path === to.path)
-      console.log(666, roles, router.getRoutes(), routes)
+      const routes = router.getRoutes().filter((r) => r.path === to.path)
       if (routes.length) {
         // Permission filtering
         const toRoute = routes[0]

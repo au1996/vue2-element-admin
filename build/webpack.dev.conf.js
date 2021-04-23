@@ -8,6 +8,7 @@ const baseWebpackConfig = require('./webpack.base.conf')
 const loaders = require('./loaders')
 const plugins = require('./plugins')
 
+// 获取本地IP
 function getIPAdress() {
   const interfaces = require('os').networkInterfaces()
   for (let devName in interfaces) {
@@ -34,7 +35,17 @@ const devWebpackConfigFun = env => {
       hot: true,
       quiet: true,
       host: '0.0.0.0',
-      port: 7001
+      port: 7001,
+      before: require('../mock/mock-server.js'),
+      proxy: {
+        '/api': {
+          target: 'http://localhost:7001',
+          changeOrigin: true, // 是否跨域
+          pathRewrite: {
+            '^/api': '/api'
+          }
+        }
+      }
     }
   })
 }

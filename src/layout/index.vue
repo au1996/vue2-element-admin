@@ -21,7 +21,7 @@ import { Navbar, Sidebar, AppMain, TagsView } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
 
 export default {
-  name: 'layout',
+  name: 'Layout',
   components: {
     Navbar,
     Sidebar,
@@ -31,8 +31,8 @@ export default {
   mixins: [ResizeMixin],
   computed: {
     ...mapState({
-      sidebar: state => state.app.sidebar,
-      device: state => state.app.device
+      sidebar: (state) => state.app.sidebar,
+      device: (state) => state.app.device
     }),
     classObj() {
       return {
@@ -54,8 +54,8 @@ export default {
 <style lang="scss" scoped>
 .app-wrapper {
   position: relative;
-  height: 100%;
   width: 100%;
+  height: 100%;
   overflow: hidden;
 
   &.mobile.openSidebar {
@@ -63,6 +63,7 @@ export default {
     top: 0;
   }
 }
+
 .drawer-bg {
   position: absolute;
   top: 0;

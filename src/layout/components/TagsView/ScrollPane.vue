@@ -55,7 +55,7 @@ export default {
         $scrollWrapper.scrollLeft = $scrollWrapper.scrollWidth - $containerWidth
       } else {
         // find preTag and nextTag
-        const currentIndex = [...tagList].findIndex(item => item === currentTag)
+        const currentIndex = [...tagList].findIndex((item) => item === currentTag)
         const prevTag = tagList[currentIndex - 1]
         const nextTag = tagList[currentIndex + 1]
 
@@ -78,14 +78,16 @@ export default {
 
 <style lang="scss" scoped>
 .scroll-container {
-  white-space: nowrap;
   position: relative;
-  overflow: hidden;
   width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+
   ::v-deep {
     .el-scrollbar__bar {
-      bottom: 0px;
+      bottom: 0;
     }
+
     .el-scrollbar__wrap {
       height: 49px;
     }
