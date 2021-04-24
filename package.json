@@ -21,7 +21,6 @@
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
     "path-browserify": "^1.0.1",
-    "path-to-regexp": "^6.2.0",
     "screenfull": "^5.1.0",
     "vue": "^2.6.12",
     "vue-router": "^3.5.1",

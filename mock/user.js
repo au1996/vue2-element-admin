@@ -25,7 +25,6 @@ module.exports = [
     url: '/api/user/login',
     type: 'post',
     response: ({ body }) => {
-      console.log(body)
       let flag = false
       let role = ''
       userList.forEach((item) => {
