@@ -1,7 +1,7 @@
 const userList = [
-  { username: 'admin', password: '123', role: 'admin' },
-  { username: 'editor', password: '456', role: 'editor' },
-  { username: 'xueyue', password: '123456', role: 'admin' }
+  { username: 'admin', password: '123', role: 'admin', tokem: 'admin-token' },
+  { username: 'editor', password: '456', role: 'editor', tokem: 'editor-token' },
+  { username: 'xueyue', password: '123456', role: 'admin', tokem: 'xueyue-token' }
 ]
 
 const users = {
@@ -16,6 +16,12 @@ const users = {
     introduction: 'I am an editor',
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
     name: 'Normal Editor'
+  },
+  'xueyue-token': {
+    roles: ['admin'],
+    introduction: 'I am an editor',
+    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+    name: 'Normal Editor'
   }
 }
 
@@ -24,13 +30,16 @@ module.exports = [
   {
     url: '/api/user/login',
     type: 'post',
+    timeout: '1000-4000',
     response: ({ body }) => {
       let flag = false
       let role = ''
+      let token = ''
       userList.forEach((item) => {
         if (item.username === body.username && item.password === body.password) {
           flag = true
           role = item.role
+          token = item.token
         }
       })
       if (flag) {
@@ -38,7 +47,7 @@ module.exports = [
           code: 200,
           message: '登录成功',
           role,
-          token: new Date().getTime().toString(32)
+          token
         }
       } else {
         return {
@@ -72,17 +81,6 @@ module.exports = [
     }
   },
 
-  // user logout
-  {
-    url: '/api/user/logout',
-    type: 'post',
-    response: (_) => {
-      return {
-        code: 20000,
-        data: 'success'
-      }
-    }
-  },
   // user list
   {
     url: '/api/user/list',

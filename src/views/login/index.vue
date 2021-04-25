@@ -50,15 +50,6 @@ export default {
       this.$refs.loginRef.validate((valid) => {
         if (valid) {
           this.btnLoading = true
-
-          // setTimeout(() => {
-          //   this.btnLoading = false
-          //   this.$message.success('登录成功')
-          //   setToken(this.param.password)
-          //   setRoles(this.param.username)
-          //   this.$router.push('/')
-          // }, 800)
-
           // // 访问登录接口
           login(this.param)
             .then((res) => {
@@ -71,7 +62,7 @@ export default {
               } else {
                 this.$message({
                   type: 'error',
-                  message: res.message
+                  message: res.messages || res
                 })
               }
             })

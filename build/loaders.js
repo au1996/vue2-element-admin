@@ -1,10 +1,10 @@
 const path = require('path')
-const cwdResolve = dir => path.resolve(process.cwd(), dir)
+const cwdResolve = (dir) => path.resolve(process.cwd(), dir)
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-module.exports = env => {
+module.exports = (env) => {
   return {
-    //如果模块的路径匹配此正则的话，就不需要去查找里面的依赖项 require import
+    // 如果模块的路径匹配此正则的话，就不需要去查找里面的依赖项 require import
     noParse: /noParse.js/,
     rules: [
       {
@@ -24,7 +24,7 @@ module.exports = env => {
             loader: 'babel-loader',
             options: {
               presets: ['@babel/preset-env'],
-              cacheDirectory: true //启动babel缓存
+              cacheDirectory: true // 启动babel缓存
             }
           },
           {
@@ -37,6 +37,9 @@ module.exports = env => {
         use: [
           {
             loader: 'cache-loader'
+          },
+          {
+            loader: 'vue-style-loader'
           },
           {
             loader: env.WEBPACK_BUILD ? MiniCssExtractPlugin.loader : 'vue-style-loader'
@@ -54,6 +57,9 @@ module.exports = env => {
         use: [
           {
             loader: 'cache-loader'
+          },
+          {
+            loader: 'vue-style-loader'
           },
           {
             loader: env.WEBPACK_BUILD ? MiniCssExtractPlugin.loader : 'vue-style-loader'

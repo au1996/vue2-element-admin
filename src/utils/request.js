@@ -32,7 +32,7 @@ service.interceptors.response.use(
     }
     Message({
       type: 'error',
-      message: error.message
+      message: error.message || error
     })
     return Promise.reject(error)
   }
