@@ -5,8 +5,8 @@ module.exports = {
   },
   testEnvironment: 'jsdom',
   transform: {
-    '^.+\\.vue$': 'vue-jest',
-    '^.+\\.js$': 'babel-jest'
+    '^.+\\.js$': 'babel-jest',
+    '^.+\\.vue$': 'vue-jest'
   },
   testMatch: ['<rootDir>/tests/**/*.(spec|test).(js|jsx)|**/__tests__/*.(js|jsx)']
 }
