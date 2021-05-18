@@ -1,5 +1,6 @@
 /dist/*
 /public/*
+/coverage/*
 *.js
 *.png
 *.eot

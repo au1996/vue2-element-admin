@@ -8,5 +8,7 @@ module.exports = {
     '^.+\\.js$': 'babel-jest',
     '^.+\\.vue$': 'vue-jest'
   },
-  testMatch: ['<rootDir>/tests/**/*.(spec|test).(js|jsx)|**/__tests__/*.(js|jsx)']
+  testMatch: ['<rootDir>/tests/**/*.(spec|test).(js|jsx)|**/__tests__/*.(js|jsx)'],
+  collectCoverage: true,
+  collectCoverageForm: ['src/**/*.{js,vue}']
 }

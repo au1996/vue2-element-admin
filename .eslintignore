@@ -11,6 +11,7 @@ dist
 /docs
 /tests
 /__tests__
+/coverage
 .husky
 .local
 /bin
