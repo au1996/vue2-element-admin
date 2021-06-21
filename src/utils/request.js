@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
-import router from '../router'
 import { getToken, removeToken, removeRoles } from './auth'
 
 const service = axios.create({
@@ -28,11 +27,11 @@ service.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       removeToken()
       removeRoles()
-      router.push('/login')
+      location.reload()
     }
     Message({
       type: 'error',
-      message: error.message || error
+      message: error.message
     })
     return Promise.reject(error)
   }

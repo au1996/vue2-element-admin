@@ -32,6 +32,7 @@ export default {
   components: { SidebarItem },
   data() {
     return {
+      roles: '',
       routers: []
     }
   },
@@ -49,37 +50,35 @@ export default {
   methods: {
     // 路由过滤
     filterRoutes() {
-      const roles = getRoles()
-      const routes = []
-      for (let i = 0; i < constantRoutes.length; i++) {
-        if (constantRoutes[i].path === '/') {
-          routes.push(...constantRoutes[i].children)
+      this.roles = getRoles()
+      const routerList = []
+      constantRoutes.forEach((item) => {
+        if (item.path === '/') {
+          routerList.push(...item.children)
         }
-      }
-      // 权限过滤
-      for (let i = 0; i < routes.length; i++) {
-        if (routes[i].meta && routes[i].meta.roles && !routes[i].meta.roles.includes(roles)) {
-          routes.splice(i, 1)
+      })
+      for (let i = 0; i < routerList.length; i++) {
+        if (routerList[i].meta && routerList[i].meta.roles && !routerList[i].meta.roles.includes(this.roles)) {
+          routerList.splice(i, 1)
           i--
         }
       }
-      for (let i = 0; i < routes.length; i++) {
-        const childrens = []
-        if (routes[i].children) {
-          for (let j = 0; j < routes[i].children.length; j++) {
-            // 权限过滤
-            const childs = routes[i].children[j]
-            if (
-              (childs.meta && !childs.meta.roles) ||
-              (childs.meta && childs.meta.roles && childs.meta.roles.includes(roles))
-            ) {
-              childrens.push(childs)
-            }
+      this.filterChildrens(routerList)
+      return routerList
+    },
+    // 权限过滤子路由
+    filterChildrens(routers) {
+      const childrens = []
+      routers.forEach((item) => {
+        if ((item.meta && !item.meta.roles) || (item.meta && item.meta.roles && item.meta.roles.includes(this.roles))) {
+          childrens.push(item)
+          if (item.children) {
+            this.filterChildrens(item.children)
           }
-          routes[i].children = [...childrens]
         }
-      }
-      return routes
+      })
+      routers.length = 0
+      routers.push(...childrens)
     }
   }
 }

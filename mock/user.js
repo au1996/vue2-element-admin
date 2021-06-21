@@ -1,7 +1,7 @@
 const userList = [
-  { username: 'admin', password: '123', role: 'admin', tokem: 'admin-token' },
-  { username: 'editor', password: '456', role: 'editor', tokem: 'editor-token' },
-  { username: 'xueyue', password: '123456', role: 'admin', tokem: 'xueyue-token' }
+  { username: 'admin', password: '123', role: 'admin', token: 'admin-token' },
+  { username: 'editor', password: '456', role: 'editor', token: 'editor-token' },
+  { username: 'xueyue', password: '123456', role: 'admin', token: 'xueyue-token' }
 ]
 
 const users = {

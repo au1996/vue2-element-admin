@@ -36,9 +36,9 @@ export default {
       let matched = this.$route.matched.filter((item) => item.meta && item.meta.title)
       const first = matched[0]
 
-      if (!this.isDashboard(first)) {
+      if (!this.isHome(first)) {
         const nav = {
-          path: '/dashboard',
+          path: '/home',
           meta: { title: '首页' }
         }
         matched = [nav].concat(matched)
@@ -46,12 +46,12 @@ export default {
 
       this.levelList = matched.filter((item) => item.meta && item.meta.title && item.meta.breadcrumb !== false)
     },
-    isDashboard(route) {
+    isHome(route) {
       const name = route && route.name
       if (!name) {
         return false
       }
-      return name.trim().toLocaleLowerCase() === 'Dashboard'.toLocaleLowerCase()
+      return name.trim().toLocaleLowerCase() === 'Home'.toLocaleLowerCase()
     }
   }
 }

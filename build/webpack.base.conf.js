@@ -1,6 +1,6 @@
 const path = require('path')
-const cwdResolve = dir => path.resolve(process.cwd(), dir)
-const xueyueLoader = path.resolve(__dirname, 'xueyueLoader')
+const cwdResolve = (dir) => path.resolve(process.cwd(), dir)
+const xueyueLoaders = path.resolve(__dirname, 'xueyue-loaders')
 
 module.exports = {
   context: process.cwd(),
@@ -12,12 +12,12 @@ module.exports = {
     filename: '[name].[chunkhash:6].js'
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json'], //指定文件的扩展名,找不到会报错
+    extensions: ['.js', '.vue', '.json'], // 指定文件的扩展名,找不到会报错
     alias: {
       '@': cwdResolve('src')
     },
     fallback: {
-      //webpack5中移除了nodejs核心模块的polyfill自动引入，所以需要手动引入
+      // webpack5中移除了nodejs核心模块的polyfill自动引入，所以需要手动引入
       assert: require.resolve('assert'),
       path: require.resolve('path-browserify')
       // util: require.resolve('util'),
@@ -28,12 +28,12 @@ module.exports = {
       // stream: require.resolve('stream-browserify/'),
       // vm: require.resolve('vm-browserify')
     },
-    modules: ['node_modules', 'c:/node_modules'], //指定查找目录
-    mainFields: ['browser', 'module', 'main'], //从package.json中的哪个字段查找入口文件
-    mainFiles: ['index'] //如果找不到mainFields的话，会找索引文件，index.js
+    modules: ['node_modules', 'c:/node_modules'], // 指定查找目录
+    mainFields: ['browser', 'module', 'main'], // 从package.json中的哪个字段查找入口文件
+    mainFiles: ['index'] // 如果找不到mainFields的话，会找索引文件，index.js
   },
   resolveLoader: {
     // loader的文件查找位置，可自定义loader
-    modules: [xueyueLoader, 'node_modules']
+    modules: [xueyueLoaders, 'node_modules']
   }
 }

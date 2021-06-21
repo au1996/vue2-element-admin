@@ -11,9 +11,10 @@
           </el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input v-model="param.password" placeholder="密码" type="password" @keyup.enter.native="submitForm">
+          <el-input v-model="param.password" placeholder="密码" :type="passwordType" @keyup.enter.native="submitForm">
             <template #prepend>
-              <i class="el-icon-lock" />
+              <i v-show="passwordLock" class="el-icon-lock" @click="switchPass" />
+              <i v-show="!passwordLock" class="el-icon-unlock" @click="switchPass" />
             </template>
           </el-input>
         </el-form-item>
@@ -34,7 +35,9 @@ import { login } from '@/api/user'
 export default {
   data() {
     return {
+      passwordLock: true,
       btnLoading: false,
+      passwordType: 'password',
       param: {
         username: '',
         password: ''
@@ -46,6 +49,14 @@ export default {
     }
   },
   methods: {
+    switchPass() {
+      if (this.passwordLock) {
+        this.passwordType = 'text'
+      } else {
+        this.passwordType = 'password'
+      }
+      this.passwordLock = !this.passwordLock
+    },
     submitForm() {
       this.$refs.loginRef.validate((valid) => {
         if (valid) {
@@ -53,16 +64,19 @@ export default {
           // // 访问登录接口
           login(this.param)
             .then((res) => {
-              if (res.code === 200) {
+              if (res.token) {
                 // 登录成功后；保存用户信息以及token
-                this.$message.success(res.message)
                 setToken(res.token)
                 setRoles(res.role)
                 this.$router.push('/')
+                this.$message({
+                  type: 'success',
+                  message: res.message
+                })
               } else {
                 this.$message({
                   type: 'error',
-                  message: res.messages || res
+                  message: res.message || res
                 })
               }
             })
@@ -126,5 +140,10 @@ export default {
   font-size: 12px;
   line-height: 30px;
   color: #be1480;
+}
+
+.el-icon-lock,
+.el-icon-unlock {
+  cursor: pointer;
 }
 </style>

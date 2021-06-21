@@ -1,6 +1,6 @@
 <template>
-  <div class="screenfull-svg">
-    <svg-icon :icon-class="isFullscreen ? 'exit-fullscreen' : 'fullscreen'" @click="click" />
+  <div class="screenfull-svg" @click="click">
+    <svg-icon :icon-class="isFullscreen ? 'exit-fullscreen' : 'fullscreen'" />
   </div>
 </template>
 
@@ -22,7 +22,6 @@ export default {
   },
   methods: {
     click() {
-      console.log(66, screenfull)
       if (!screenfull.isEnabled) {
         this.$message({
           message: 'you browser can not work',

@@ -28,12 +28,12 @@ export const constantRoutes = [
   {
     path: '/',
     component: () => import('@/layout/index.vue'),
-    redirect: '/dashboard',
+    redirect: '/home',
     children: [
       {
-        path: '/dashboard',
-        component: () => import('@/views/dashboard/index.vue'),
-        name: 'Dashboard',
+        path: '/home',
+        component: () => import('@/views/home/index.vue'),
+        name: 'Home',
         meta: { title: '首页', icon: 'dashboard', affix: true }
       },
       {
@@ -60,7 +60,7 @@ export const constantRoutes = [
                 path: '/menu1-1',
                 component: () => import('@/views/menu/menu11.vue'),
                 name: 'menu1-1',
-                meta: { title: '菜单1-1', roles: ['admin', 'editor'] }
+                meta: { title: '菜单1-1', roles: ['admin'] }
               },
               {
                 path: '/menu1-2',
@@ -85,6 +85,7 @@ export const constantRoutes = [
 export const asyncRoutes = []
 
 const router = new VueRouter({
+  mode: 'history',
   routes: constantRoutes
 })
 

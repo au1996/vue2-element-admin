@@ -11,7 +11,7 @@ const plugins = require('./plugins')
 // 获取本地IP
 function getIPAdress() {
   const interfaces = require('os').networkInterfaces()
-  for (let devName in interfaces) {
+  for (const devName in interfaces) {
     const iface = interfaces[devName]
     for (let i = 0; i < iface.length; i++) {
       const alias = iface[i]
@@ -22,7 +22,7 @@ function getIPAdress() {
   }
 }
 
-const devWebpackConfigFun = env => {
+const devWebpackConfigFun = (env) => {
   return merge(baseWebpackConfig, {
     target: 'web',
     mode: 'development',
@@ -50,7 +50,7 @@ const devWebpackConfigFun = env => {
   })
 }
 
-module.exports = env => {
+module.exports = (env) => {
   // process.env.NODE_ENV默认值是undefined 是node环境 的环境变量；跟main.js等模块内的process.env.NODE_ENV不是一个东西
   console.log('dev666', env, process.env.NODE_ENV)
   const devWebpackConfig = devWebpackConfigFun(env)
@@ -58,7 +58,7 @@ module.exports = env => {
     portfinder.basePort = devWebpackConfig.devServer.port
     portfinder
       .getPortPromise()
-      .then(port => {
+      .then((port) => {
         devWebpackConfig.devServer.port = port
 
         devWebpackConfig.plugins.push(
@@ -72,7 +72,7 @@ module.exports = env => {
               ]
             },
             onErrors: (severity, errors) => {
-              let error = errors[0]
+              const error = errors[0]
               notifier.notify({
                 title: 'webpack编译失败',
                 message: severity + ':' + error.name,
@@ -84,7 +84,7 @@ module.exports = env => {
 
         resolve(devWebpackConfig)
       })
-      .catch(err => {
+      .catch((err) => {
         reject(err)
       })
   })
