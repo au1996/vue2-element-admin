@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "echarts": "^5.1.2",
     "element-ui": "^2.15.1",
     "js-cookie": "^2.2.1",
     "normalize.css": "^8.0.1",

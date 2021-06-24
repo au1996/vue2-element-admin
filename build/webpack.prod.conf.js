@@ -8,7 +8,7 @@ module.exports = (env) => {
   console.log('prod666', env, process.env.NODE_ENV)
   return merge(baseWebpackConfig, {
     mode: 'production',
-    devtool: 'hidden-source-map',
+    // devtool: 'cheap-source-map',
     module: loaders(env),
     plugins: plugins(env),
     optimization: {
