@@ -1,6 +1,6 @@
 const path = require('path')
 const cwdResolve = (dir) => path.resolve(process.cwd(), dir)
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = (env) => {
   return {
@@ -16,20 +16,20 @@ module.exports = (env) => {
         exclude: /node_modules/,
         include: cwdResolve('src'),
         use: [
-          // {
-          //   loader: 'thread-loader', // 使用多线程；通信有消耗；自行选择
-          //   options: { workers: 7 }
-          // },
+          {
+            loader: 'thread-loader', // 使用多线程；通信有消耗；自行选择
+            options: { workers: 3 }
+          },
           {
             loader: 'babel-loader',
             options: {
               presets: ['@babel/preset-env'],
               cacheDirectory: true // 启动babel缓存
             }
-          },
-          {
-            loader: 'xueyue-loader'
           }
+          // {
+          //   loader: 'xueyue-loader'
+          // }
         ]
       },
       {
@@ -41,9 +41,12 @@ module.exports = (env) => {
           {
             loader: 'vue-style-loader'
           },
-          {
-            loader: env.WEBPACK_BUILD ? MiniCssExtractPlugin.loader : 'vue-style-loader'
-          },
+          // {
+          //   loader: env.WEBPACK_BUILD ? MiniCssExtractPlugin.loader : 'vue-style-loader',
+          //   options: {
+          //     esModule: false
+          //   }
+          // },
           {
             loader: 'css-loader'
           },
@@ -61,17 +64,20 @@ module.exports = (env) => {
           {
             loader: 'vue-style-loader'
           },
-          {
-            loader: env.WEBPACK_BUILD ? MiniCssExtractPlugin.loader : 'vue-style-loader'
-          },
+          // {
+          //   loader: env.WEBPACK_BUILD ? MiniCssExtractPlugin.loader : 'vue-style-loader',
+          //   options: {
+          //     esModule: false
+          //   }
+          // },
           {
             loader: 'css-loader'
           },
           {
-            loader: 'sass-loader'
+            loader: 'postcss-loader'
           },
           {
-            loader: 'postcss-loader'
+            loader: 'sass-loader'
           }
         ]
       },

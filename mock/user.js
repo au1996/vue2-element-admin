@@ -31,12 +31,13 @@ module.exports = [
     url: '/api/user/login',
     type: 'post',
     timeout: '1000-4000',
-    response: ({ body }) => {
+    response: (config) => {
+      const { username, password } = config.body
       let flag = false
       let role = ''
       let token = ''
       userList.forEach((item) => {
-        if (item.username === body.username && item.password === body.password) {
+        if (item.username === username && item.password === password) {
           flag = true
           role = item.role
           token = item.token
@@ -85,7 +86,7 @@ module.exports = [
   {
     url: '/api/user/list',
     type: 'get',
-    response: (_) => {
+    response: () => {
       return {
         code: 20000,
         data: userList

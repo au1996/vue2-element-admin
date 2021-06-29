@@ -8,7 +8,7 @@ module.exports = (env) => {
   console.log('prod666', env, process.env.NODE_ENV)
   return merge(baseWebpackConfig, {
     mode: 'production',
-    // devtool: 'cheap-source-map',
+    devtool: 'cheap-source-map',
     module: loaders(env),
     plugins: plugins(env),
     optimization: {
@@ -24,13 +24,13 @@ module.exports = (env) => {
         cacheGroups: {
           vendors: {
             // 第三方模块
-            name: 'chunk-vendors',
+            name: 'vendors',
             test: /[\\/]node_modules[\\/]/, // 如果模块的路径匹配此正则的话
             priority: -10, // 很多缓存组，如果一个模块同属于多个缓存组，应该分到哪个组里，看优先级高
             reuseExistingChunk: true // 如果该chunk中引用了已经被抽取的chunk，直接引用该chunk，不会重复打包代码
           },
           elementUI: {
-            name: 'chunk-elementUI', // split elementUI into a single package
+            name: 'elementUI', // split elementUI into a single package
             priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
             test: /[\\/]node_modules[\\/]_?element-ui(.*)/ // in order to adapt to cnpm
           }

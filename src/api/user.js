@@ -1,17 +1,22 @@
 import request from '../utils/request'
 
+let baseURL = ''
+if (process.env.NODE_ENV === 'production') {
+  baseURL = location.host
+}
+
 export function login(data) {
   return request({
-    url: 'api/user/login',
+    url: `${baseURL}/api/user/login`,
     method: 'post',
     data
   })
 }
 
-export function getUserList(data) {
+export function getUserList(params) {
   return request({
-    url: '/api/user/list',
+    url: `${baseURL}/api/user/list`,
     method: 'get',
-    data
+    params
   })
 }
