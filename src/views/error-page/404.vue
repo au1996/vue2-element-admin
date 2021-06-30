@@ -17,7 +17,7 @@
         <div class="bullshit__info">
           Please check that the URL you entered is correct, or click the button below to return to the homepage.
         </div>
-        <div class="bullshit__return-home" @click="goHome">Back to home</div>
+        <div class="bullshit__return-home" @click="$router.replace('/')">Back to home</div>
       </div>
     </div>
   </div>
@@ -29,11 +29,6 @@ export default {
   computed: {
     message() {
       return 'The webmaster said that you can not enter this page...'
-    }
-  },
-  methods: {
-    goHome() {
-      this.$router.replace('/')
     }
   }
 }

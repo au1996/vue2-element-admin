@@ -10,10 +10,10 @@
         <ul class="list-unstyled">
           <li>或者你可以去:</li>
           <li class="link-type">
-            <router-link to="/dashboard"> 回首页 </router-link>
+            <router-link to="/"> 回首页 </router-link>
           </li>
           <li class="link-type">
-            <a href="https://au1996.gitee.io/blog/" target="_brank">随便看看</a>
+            <a href="https://github.com/au1996" target="_brank">随便看看</a>
           </li>
           <li><a href="#" @click.prevent="dialogVisible = true">点我看图</a></li>
         </ul>
@@ -36,7 +36,7 @@ export default {
   data() {
     return {
       errGif: errGif + '?' + +new Date(),
-      ewizardClap: 'https://au1996.gitee.io/blog/images/bg.jpg',
+      ewizardClap: 'https://au1996.gitee.io/blog/images/avatar.png',
       dialogVisible: false
     }
   },
