@@ -12,6 +12,7 @@ import './styles/index.scss' // global css
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import directives from './directive'
 
 import './icons' // icon
 import './permission' // permission control
@@ -21,6 +22,7 @@ if (process.env.NODE_ENV === 'production') {
   mockXHR()
 }
 
+Vue.use(directives)
 Vue.use(Element, {
   size: Cookies.get('size') || 'medium' // set element-ui default size
 })

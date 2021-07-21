@@ -6,7 +6,7 @@ set -e
 # 部署
 npm run build
 git add .
-git commit -m 'feat: :rocket: add dist dir'
+git commit -m 'feat: :sparkles: add directive'
 git push origin master
 git subtree push --prefix dist origin gh-pages
 
