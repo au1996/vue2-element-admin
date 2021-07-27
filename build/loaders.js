@@ -18,7 +18,7 @@ module.exports = (env) => {
         use: [
           {
             loader: 'thread-loader', // 使用多线程；通信有消耗；自行选择
-            options: { workers: 3 }
+            options: { workers: 4 }
           },
           {
             loader: 'babel-loader',

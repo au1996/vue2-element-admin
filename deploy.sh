@@ -6,7 +6,7 @@ set -e
 # 部署
 npm run build
 git add .
-git commit -m 'feat: :sparkles: add directive'
+git commit -m 'feat: :art: add ShowDirective component'
 git push origin master
 git subtree push --prefix dist origin gh-pages
 
