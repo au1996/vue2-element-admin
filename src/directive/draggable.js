@@ -1,5 +1,8 @@
 export default {
   inserted(el) {
+    const rect = el.parentNode.getBoundingClientRect()
+    const parentWidth = rect.width
+    const parentHeight = rect.height
     el.parentNode.style.position = 'relative'
     el.style.position = 'absolute'
     el.style.cursor = 'move'
@@ -9,8 +12,8 @@ export default {
       document.onmousemove = function (e) {
         let x = e.pageX - disx
         let y = e.pageY - disy
-        const maxX = document.body.clientWidth - parseInt(window.getComputedStyle(el).width)
-        const maxY = document.body.clientHeight - parseInt(window.getComputedStyle(el).height)
+        const maxX = parentWidth - parseInt(window.getComputedStyle(el).width)
+        const maxY = parentHeight - parseInt(window.getComputedStyle(el).height)
         if (x < 0) {
           x = 0
         } else if (x > maxX) {
