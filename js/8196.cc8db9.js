@@ -1,2 +1,0 @@
-(self.webpackChunkvue2_element_admin=self.webpackChunkvue2_element_admin||[]).push([[8196],{61417:function(e,t,n){"use strict";n.r(t),n.d(t,{default:function(){return l}});var u=function(){var e=this,t=e.$createElement,n=e._self._c||t;return n("el-empty",[n("el-button",{attrs:{type:"primary"}},[e._v("刷新test")])],1)};u._withStripped=!0;var r=(0,n(51900).Z)({data:function(){return{loading:!0}}},u,[],!1,null,null,null);r.options.__file="src/views/xueyue/index.vue";var l=r.exports}}]);
-//# sourceMappingURL=8196.cc8db9.js.map
