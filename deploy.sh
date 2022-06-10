@@ -4,7 +4,7 @@
 set -e
 
 git add .
-git commit -m 'feat: add syncToGitee'
+git commit -m 'chore: update axios version'
 git push origin master
 
 cd -
