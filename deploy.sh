@@ -4,7 +4,7 @@
 set -e
 
 git add .
-git commit -m 'chore: update tests/unit/utils'
+git commit -m 'feat: add syncToGitee'
 git push origin master
 
 cd -
