@@ -4,7 +4,7 @@
 set -e
 
 git add .
-git commit -m 'chore: update axios version'
+git commit -m 'feat: add jsconfig.json'
 git push origin master
 
 cd -

@@ -6,7 +6,8 @@
 </template>
 
 <script>
-import Chart from '@/components/Charts'
+import Chart from '@/components/Charts/index.vue'
+
 export default {
   components: { Chart },
   data() {

@@ -5,7 +5,8 @@
 </template>
 
 <script>
-import ShowDirective from '@/components/ShowDirective'
+import ShowDirective from '@/components/ShowDirective/index.vue'
+
 export default {
   components: { ShowDirective },
   data() {
