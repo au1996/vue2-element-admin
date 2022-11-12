@@ -9,7 +9,7 @@
 git clone https://github.com/au1996/vue2-element-admin.git
 
 # 进入项目目录
-cd vue3-element-admin
+cd vue2-element-admin
 
 # 安装依赖
 npm install
@@ -39,6 +39,7 @@ npm run lint:css
 ```
 
 [在线 Demo](https://au1996.github.io/vue2-element-admin/)
+[国内访问](https://au1996.gitee.io/vue2-element-admin/)
 
 ## License
 

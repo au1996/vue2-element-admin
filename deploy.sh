@@ -4,7 +4,7 @@
 set -e
 
 git add .
-git commit -m 'feat: add jsconfig.json'
+git commit -m 'chore: update README'
 git push origin master
 
 cd -
