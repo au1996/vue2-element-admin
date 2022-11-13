@@ -2,6 +2,9 @@
 
 🎉 基于 webpack 5.0 + vue 2.0 的后台管理系统 vue2-element-admin
 
+- [在线预览](https://au1996.github.io/vue2-element-admin)
+- [国内访问](https://au1996.gitee.io/vue2-element-admin)
+
 ## 开发
 
 ```bash
@@ -38,8 +41,8 @@ npm run lint:js
 npm run lint:css
 ```
 
-[在线 Demo](https://au1996.github.io/vue2-element-admin/)
-[国内访问](https://au1996.gitee.io/vue2-element-admin/)
+- [在线预览](https://au1996.github.io/vue2-element-admin)
+- [国内访问](https://au1996.gitee.io/vue2-element-admin)
 
 ## License
 
