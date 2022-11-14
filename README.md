@@ -41,8 +41,8 @@ npm run lint:js
 npm run lint:css
 ```
 
-- [在线预览](https://au1996.github.io/vue2-element-admin)
-- [国内访问](https://au1996.gitee.io/vue2-element-admin)
+- [vue3-element-admin](https://github.com/au1996/vue3-element-admin)
+- [vue3-element-admin-ts](https://github.com/au1996/vue3-element-admin-ts)
 
 ## License
 
